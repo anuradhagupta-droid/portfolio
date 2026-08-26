@@ -1,9 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Anuradha</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anuradha Gupta — Creative Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#7A1F1D;
+    --maroon-deep:#5C1614;
+    --cream:#F1E9DA;
+    --paper:#EFE6D3;
+    --ink:#1B1512;
+    --white:#FDFBF6;
+    --gold:#C99A3E;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk',sans-serif;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  :focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  h1,h2,h3{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    text-transform:uppercase;
+    line-height:0.92;
+    letter-spacing:0.01em;
+  }
+
+  .hand{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+  }
+
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    opacity:0.75;
+  }
+
+  /* ---------- sprocket / filmstrip motif ---------- */
+  .sprockets{
+    position:relative;
+    background:var(--maroon);
+  }
+  .sprockets::before,
+  .sprockets::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;
+    height:26px;
+    background-image:radial-gradient(circle, var(--cream) 34%, transparent 36%);
+    background-size:44px 26px;
+    background-position:12px center;
+    background-repeat:repeat-x;
+    z-index:3;
+  }
+  .sprockets::before{top:0;}
+  .sprockets::after{bottom:0;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 6vw;
+    mix-blend-mode:difference;
+  }
+  header .logo{
+    font-family:'Anton',sans-serif;
+    font-size:1.05rem;
+    color:var(--white);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:clamp(16px,3vw,36px);
+  }
+  nav a{
+    color:var(--white);
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    position:relative;
+    padding-bottom:3px;
+  }
+  nav a::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:0;
+    width:0;height:2px;
+    background:var(--white);
+    transition:width 0.3s ease;
+  }
+  nav a:hover::after,
+  nav a:focus-visible::after{width:100%;}
+
+  @media(max-width:640px){
+    nav ul{gap:14px;}
+    nav a{font-size:0.66rem;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    padding-top:66px;
+    padding-bottom:26px;
+    overflow:hidden;
+  }
+  .hero .frame{
+    position:relative;
+    margin:0 4vw;
+    padding:64px 6vw 90px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    min-height:78vh;
+  }
+  .portrait{
+    position:relative;
+    width:min(78vw,420px);
+    aspect-ratio:3/4;
+    border-radius:2px;
+    background:
+      radial-gradient(circle at 50% 28%, #d8cbb4 0 15%, transparent 16%),
+      radial-gradient(ellipse 130px 190px at 50% 62%, #d8cbb4 0 60%, transparent 61%),
+      repeating-radial-gradient(circle at 20% 20%, rgba(0,0,0,0.18) 0 1px, transparent 1px 4px),
+      linear-gradient(160deg,#2a2320,#0d0a09 70%);
+    filter:contrast(1.15) grayscale(0.15);
+    box-shadow:inset 0 0 60px rgba(0,0,0,0.55);
+  }
+  .portrait::after{
+    content:"";
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 4px);
+    mix-blend-mode:overlay;
+  }
+  .hero h1{
+    color:var(--white);
+    font-size:clamp(2.6rem,9vw,6.4rem);
+    margin-top:34px;
+  }
+  .hero .role{
+    margin-top:16px;
+    color:var(--cream);
+    font-size:clamp(0.9rem,2vw,1.1rem);
+    font-weight:500;
+    max-width:520px;
+    opacity:0.9;
+  }
+  .hero .role b{color:var(--gold);font-weight:700;}
+
+  /* ---------- scrolling filmstrip marquee ---------- */
+  .marquee-wrap{
+    position:relative;
+    background:var(--ink);
+    padding:22px 0;
+    overflow:hidden;
+  }
+  .marquee-track{
+    display:flex;
+    width:max-content;
+    animation:scrollX 26s linear infinite;
+  }
+  @keyframes scrollX{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .frame-cell{
+    position:relative;
+    width:150px;
+    height:110px;
+    margin:0 10px;
+    border:6px solid var(--cream);
+    flex:none;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--maroon) 0%, #2a1210 100%);
+  }
+  .frame-cell span{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--cream);
+    font-family:'Anton',sans-serif;
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:6px;
+    opacity:0.85;
+  }
+  .frame-cell::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1.4px);
+    background-size:9px 9px;
+  }
+  .frame-cell:nth-child(4n+1){background:linear-gradient(135deg,#8a2a24,#2a1210);}
+  .frame-cell:nth-child(4n+2){background:linear-gradient(135deg,#3b2420,#7a1f1d);}
+  .frame-cell:nth-child(4n+3){background:linear-gradient(135deg,#c99a3e,#5c1614);}
+  .frame-cell:nth-child(4n+4){background:linear-gradient(135deg,#2a1210,#7a1f1d);}
+
+  /* ---------- about split ---------- */
+  .about{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    background:var(--maroon);
+    color:var(--cream);
+  }
+  .about .side{
+    padding:80px 5vw;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    border-right:2px solid rgba(241,233,218,0.18);
+  }
+  .about .side .eyebrow{color:var(--gold);}
+  .about .side h2{font-size:clamp(2rem,4.4vw,3.2rem);color:var(--white);margin-top:10px;}
+  .about .content{
+    padding:80px 6vw;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:26px;
+  }
+  .about p{
+    font-size:clamp(1rem,1.6vw,1.25rem);
+    line-height:1.6;
+    max-width:56ch;
+  }
+  .about .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    align-self:flex-start;
+    padding:14px 26px;
+    border:2px solid var(--cream);
+    border-radius:999px;
+    font-size:0.82rem;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    transition:background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+  .about .cta:hover,
+  .about .cta:focus-visible{
+    background:var(--cream);
+    color:var(--maroon);
+    transform:translateX(4px);
+  }
+  .about .cta svg{width:16px;height:16px;transition:transform 0.25s ease;}
+  .about .cta:hover svg{transform:translateX(3px);}
+
+  @media(max-width:820px){
+    .about{grid-template-columns:1fr;}
+    .about .side{border-right:none;border-bottom:2px solid rgba(241,233,218,0.18);padding:56px 6vw;}
+    .about .content{padding:56px 6vw;}
+  }
+
+  /* ---------- scrapbook skills ---------- */
+  .scrapbook{
+    position:relative;
+    background:var(--maroon-deep);
+    padding:110px 6vw 140px;
+    overflow:hidden;
+  }
+  .scrapbook .heading{
+    text-align:center;
+    margin-bottom:70px;
+  }
+  .scrapbook .heading .eyebrow{color:var(--gold);}
+  .scrapbook .heading h2{
+    color:var(--white);
+    font-size:clamp(2.2rem,6vw,4.4rem);
+  }
+  .board{
+    position:relative;
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-auto-rows:minmax(80px,auto);
+    gap:20px;
+  }
+  .note{
+    background:var(--paper);
+    color:var(--ink);
+    padding:26px 24px;
+    box-shadow:0 14px 26px rgba(0,0,0,0.35);
+    position:relative;
+    opacity:0;
+    transform:translateY(30px) rotate(0deg);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .note.in-view{opacity:1;}
+  .note::before{
+    content:"";
+    position:absolute;
+    top:-14px;left:50%;
+    transform:translateX(-50%) rotate(-4deg);
+    width:70px;height:26px;
+    background:rgba(201,154,62,0.55);
+    box-shadow:0 2px 4px rgba(0,0,0,0.2);
+  }
+  .note h3{
+    font-family:'Caveat',cursive;
+    font-size:2.1rem;
+    font-weight:700;
+    margin-bottom:14px;
+    color:var(--maroon-deep);
+  }
+  .note ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .note li{
+    font-size:0.94rem;
+    line-height:1.4;
+    padding-left:16px;
+    position:relative;
+  }
+  .note li::before{
+    content:"—";
+    position:absolute;left:0;
+    color:var(--maroon);
+  }
+
+  .note--hard{grid-column:1/6;grid-row:1/3;transform:translateY(30px) rotate(-3deg);}
+  .note--hard.in-view{transform:rotate(-3deg);}
+  .note--soft{grid-column:6/9;grid-row:2/4;transform:translateY(30px) rotate(2.5deg);}
+  .note--soft.in-view{transform:rotate(2.5deg);}
+  .note--exp{grid-column:9/13;grid-row:1/4;transform:translateY(30px) rotate(-1.5deg);}
+  .note--exp.in-view{transform:rotate(-1.5deg);}
+  .note--big{
+    grid-column:1/13;
+    text-align:center;
+    padding:34px 24px;
+    transform:translateY(30px) rotate(0.6deg);
+  }
+  .note--big.in-view{transform:rotate(0.6deg);}
+  .note--big h3{font-size:2.6rem;}
+  .note--big p{max-width:60ch;margin:0 auto;font-size:1rem;line-height:1.55;}
+
+  @media(max-width:820px){
+    .board{grid-template-columns:1fr;gap:34px;}
+    .note--hard,.note--soft,.note--exp,.note--big{
+      grid-column:1/2;grid-row:auto;
+    }
+  }
+
+  /* ---------- work grid ---------- */
+  .work{
+    background:var(--cream);
+    padding:120px 6vw;
+  }
+  .work .heading{max-width:640px;margin-bottom:64px;}
+  .work .heading .eyebrow{color:var(--maroon);}
+  .work .heading h2{font-size:clamp(2.2rem,5.4vw,3.6rem);color:var(--maroon-deep);margin-top:10px;}
+  .work .heading p{margin-top:18px;font-size:1.05rem;line-height:1.6;color:#3a2f28;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:34px;
+  }
+  .card{
+    position:relative;
+    background:var(--white);
+    border:2px solid var(--ink);
+    padding:0;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover,
+  .card:focus-within{
+    transform:translateY(-8px);
+    box-shadow:10px 12px 0 var(--maroon);
+  }
+  .card .thumb{
+    height:200px;
+    position:relative;
+    background:linear-gradient(135deg,var(--maroon),var(--ink));
+  }
+  .card:nth-child(1) .thumb{background:linear-gradient(135deg,#8a2a24,#241512);}
+  .card:nth-child(2) .thumb{background:linear-gradient(135deg,#c99a3e,#5c1614);}
+  .card:nth-child(3) .thumb{background:linear-gradient(135deg,#3b2420,#7a1f1d);}
+  .card:nth-child(4) .thumb{background:linear-gradient(135deg,#5c1614,#c99a3e);}
+  .card .thumb::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.14) 1px, transparent 1.6px);
+    background-size:10px 10px;
+  }
+  .card .thumb .tag{
+    position:absolute;
+    top:14px;left:14px;
+    background:var(--cream);
+    color:var(--ink);
+    font-size:0.68rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:5px 10px;
+  }
+  .card .body{padding:26px 24px 30px;}
+  .card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    text-transform:none;
+    font-size:1.3rem;
+    margin-bottom:10px;
+  }
+  .card p{font-size:0.92rem;line-height:1.55;color:#4a3f37;margin-bottom:16px;}
+  .card .link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--maroon);
+  }
+  .card .link svg{width:14px;height:14px;}
+
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- contact / footer ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:110px 6vw 40px;
+    text-align:center;
+  }
+  footer .eyebrow{color:var(--gold);}
+  footer h2{
+    font-size:clamp(2.4rem,8vw,5.4rem);
+    color:var(--white);
+    margin:14px 0 30px;
+  }
+  footer .email{
+    display:inline-block;
+    font-family:'Caveat',cursive;
+    font-size:clamp(1.6rem,4vw,2.4rem);
+    font-weight:700;
+    color:var(--gold);
+    border-bottom:2px dashed var(--gold);
+    padding-bottom:4px;
+    margin-bottom:50px;
+  }
+  .socials{
+    display:flex;
+    justify-content:center;
+    gap:26px;
+    margin-bottom:60px;
+    flex-wrap:wrap;
+  }
+  .socials a{
+    font-size:0.78rem;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.25s ease;
+  }
+  .socials a:hover,
+  .socials a:focus-visible{border-color:var(--cream);}
+  footer .fine{
+    font-size:0.72rem;
+    opacity:0.55;
+    letter-spacing:0.04em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .marquee-track{animation:none;}
+    .note{transition:none;opacity:1;transform:none !important;}
+  }
+</style>
 </head>
 <body>
-  <h1>Anuu</h1>
+
+<header>
+  <div class="logo">A. Gupta</div>
+  <nav>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero sprockets">
+  <div class="frame">
+    <div class="portrait" aria-hidden="true"></div>
+    <h1>Anuradha<br>Gupta</h1>
+    <p class="role">Creative Team Lead at <b>Plix Life</b> — visual design, brand strategy &amp; content across Plix and Joyun.</p>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- cells injected by JS, duplicated for seamless loop -->
+  </div>
+</div>
+
+<section id="about" class="about">
+  <div class="side">
+    <p class="eyebrow">01 — About</p>
+    <h2>Two brands,<br>one voice.</h2>
+  </div>
+  <div class="content">
+    <p>I lead creative for Plix Life across two very different worlds — Plix, and Joyun, a K‑beauty skincare line formulated for Indian skin. My work spans visual design, brand strategy and content, from campaign concepts to what actually shows up on Nykaa, Amazon and Instagram.</p>
+    <p>I care about ideas that hold together across a shelf, a scroll and a screen — and about building a team that can ship that consistently.</p>
+    <a class="cta" href="#work">
+      See the work
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section id="skills" class="scrapbook">
+  <div class="heading">
+    <p class="eyebrow">02 — Skills</p>
+    <h2>my abilities</h2>
+  </div>
+  <div class="board">
+    <div class="note note--hard">
+      <h3>hard skills</h3>
+      <ul>
+        <li>Visual &amp; brand design</li>
+        <li>Campaign direction</li>
+        <li>Content strategy</li>
+        <li>Marketplace design — Nykaa, Amazon</li>
+        <li>Instagram content systems</li>
+        <li>Adobe Creative Suite</li>
+      </ul>
+    </div>
+    <div class="note note--soft">
+      <h3>soft skills</h3>
+      <ul>
+        <li>Creative leadership</li>
+        <li>Team management</li>
+        <li>Cross-brand thinking</li>
+        <li>Stakeholder communication</li>
+      </ul>
+    </div>
+    <div class="note note--exp">
+      <h3>my experience</h3>
+      <ul>
+        <li>Creative Team Lead — Plix Life</li>
+        <li>Owns creative for Plix + Joyun</li>
+        <li>Campaign delivery end‑to‑end</li>
+        <li>Marketplace &amp; social presence</li>
+      </ul>
+    </div>
+    <div class="note note--big">
+      <h3>currently</h3>
+      <p>Running creative across brand campaigns, marketplace presence and Instagram content for Plix and Joyun — juggling two brand worlds without losing either voice.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="work">
+  <div class="heading">
+    <p class="eyebrow">03 — Selected work</p>
+    <h2>The reel</h2>
+    <p>A snapshot of what I've been building — swap these in for real case studies whenever you're ready.</p>
+  </div>
+  <div class="grid">
+    <article class="card">
+      <div class="thumb"><span class="tag">Campaign</span></div>
+      <div class="body">
+        <h3>Plix — Brand Campaigns</h3>
+        <p>Concept‑to‑execution creative for seasonal and product launch campaigns across the Plix line.</p>
+        <a class="link" href="#">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="thumb"><span class="tag">Launch</span></div>
+      <div class="body">
+        <h3>Joyun — Brand Launch</h3>
+        <p>Visual identity, packaging support and content direction for a new K‑beauty line formulated for Indian skin.</p>
+        <a class="link" href="#">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="thumb"><span class="tag">Marketplace</span></div>
+      <div class="body">
+        <h3>Marketplace Presence</h3>
+        <p>Design systems for storefront and listing pages across Nykaa and Amazon.</p>
+        <a class="link" href="#">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="thumb"><span class="tag">Social</span></div>
+      <div class="body">
+        <h3>Instagram Content</h3>
+        <p>Ongoing content direction and design for Plix and Joyun's Instagram presence.</p>
+        <a class="link" href="#">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer id="contact" class="sprockets" style="background:var(--ink);">
+  <p class="eyebrow">04 — Get in touch</p>
+  <h2>Let's make<br>something.</h2>
+  <a class="email" href="mailto:hello@anuradhagupta.com">hello@anuradhagupta.com</a>
+  <div class="socials">
+    <a href="#">Instagram</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Behance</a>
+  </div>
+  <p class="fine">&copy; <span id="year"></span> Anuradha Gupta. Built for Plix &amp; Joyun creative work.</p>
+</footer>
+
+<script>
+  // Build the auto-scrolling filmstrip, duplicated once for a seamless loop
+  const labels = ["Plix","Joyun","Nykaa","Amazon","Instagram","Campaigns","Brand","Content"];
+  const track = document.getElementById('marqueeTrack');
+  const buildCells = () => labels.map(l => {
+    const div = document.createElement('div');
+    div.className = 'frame-cell';
+    const span = document.createElement('span');
+    span.textContent = l;
+    div.appendChild(span);
+    return div;
+  });
+  buildCells().forEach(c => track.appendChild(c));
+  buildCells().forEach(c => track.appendChild(c));
+
+  // Scroll-reveal for scrapbook notes
+  const notes = document.querySelectorAll('.note');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  notes.forEach(n => io.observe(n));
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
